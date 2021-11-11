@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whale.auth.mapper.AuthMapper">
+
+      <resultMap type="com.whale.auth.entity.SysUser" id="UserResult">
+        <id property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="status" column="status"/>
+        <collection property="permsList" ofType="java.lang.String">
+            <result column="perms"/>
+        </collection>
+        <collection property="roleIdList" ofType="java.lang.Integer">
+            <result column="role_id"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="queryUserByUserName" resultMap="UserResult">
+      select u.id, u.user_name , u.nick_name , u.password, u.dept_id ,
+       m.perms , u.status , ur.role_id
+        from sys_user u
+      LEFT JOIN sys_user_role  ur on u.id = ur.user_id
+      left join  sys_role_menu  rm on rm.role_id =  ur.role_id
+      left join sys_menu  m on rm.menu_id = m.id   and m.type = 'F'  and m.perms is not null
+      where u.user_name = #{userName,jdbcType=VARCHAR} and u.status=0
+    </select>
+
+</mapper>

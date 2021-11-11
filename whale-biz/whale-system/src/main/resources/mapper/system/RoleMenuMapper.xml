@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whale.biz.system.mapper.RoleMenuMapper">
+
+
+
+
+
+
+     <delete id="delRoleMenu">
+        DELETE rm FROM sys_role_menu  rm , sys_menu  m
+        WHERE rm.menu_id = m.id and rm.role_id = #{roleId,jdbcType=INTEGER}
+        <if test=" applicationId != null and applicationId.length != 0">
+            and   m.application_id in  (
+            <foreach collection="applicationId" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+        </if>
+    </delete>
+
+</mapper>

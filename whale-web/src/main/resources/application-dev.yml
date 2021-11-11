@@ -1,0 +1,47 @@
+# 项目配置
+whale:
+  # 文件上传路径
+  profile: F:/profile/
+  #en_US 英语  zh_CN 简体中文
+  lang: zh_CN
+  call-back: #服务地址
+
+# Spring配置
+spring:
+  # redis 配置
+  redis:
+    # 地址
+    host: 123.56.97.130
+    # 端口，默认为6379
+    port: 6379
+    # 密码
+    password: sy91aa
+    # 连接超时时间
+    timeout: 10s
+    database: 1
+    lettuce:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 5
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池的最大数据库连接数
+        max-active: 30
+        # #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+
+  # 数据源配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://123.56.97.130:3306/whale?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&nullCatalogMeansCurrent=true
+    username: root
+    password: sy91aa
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 500
+      auto-commit: true
+      pool-name: HikariCP
+      max-lifetime: 180000
+      connection-timeout: 30000
